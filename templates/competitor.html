@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitor Intelligence | VentureMetrics AI</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #2563eb;
+            --secondary-hover: #1d4ed8;
+            --bg-light: #f1f5f9;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            box-sizing: border-box;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        /* Layout */
+        .app-layout {
+            display: flex;
+            margin-top: 65px;
+            min-height: calc(100vh - 65px);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 32px 24px;
+            box-sizing: border-box;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            margin-left: 280px;
+            max-width: 1200px;
+            box-sizing: border-box;
+        }
+
+        .sidebar h4 {
+            margin: 0 0 20px 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 8px;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .history-item:hover {
+            background: var(--bg-light);
+        }
+
+        .history-item.active {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .history-item span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        .header-actions h1 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .export-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+            color: var(--text-main);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .export-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Controls Card */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 0;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 24px;
+            font-family: inherit;
+            font-size: 15px;
+            resize: none;
+            overflow-y: hidden;
+            background-color: #f8fafc;
+            box-sizing: border-box;
+            transition: 0.2s;
+        }
+
+        textarea:focus,
+        input:focus {
+            outline: none;
+            background: var(--surface);
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        button.primary-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            width: 100%;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button.primary-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        button.primary-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Presentation Document Output Styling */
+        .presentation-document {
+            display: none;
+            margin-top: 40px;
+            padding: 60px 80px;
+            background: white;
+            border: 1px solid var(--border);
+            border-top: 8px solid var(--primary);
+            border-radius: 12px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            line-height: 1.8;
+            color: #334155;
+            font-size: 16px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .presentation-document h1 {
+            color: var(--primary);
+            font-size: 32px;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .presentation-document h2 {
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .presentation-document h3 {
+            color: var(--text-main);
+            font-size: 18px;
+            margin-top: 24px;
+        }
+
+        .presentation-document p {
+            margin-bottom: 16px;
+        }
+
+        .presentation-document strong {
+            color: var(--primary);
+        }
+
+        .presentation-document ul,
+        .presentation-document ol {
+            margin-bottom: 24px;
+            padding-left: 24px;
+        }
+
+        .presentation-document li {
+            margin-bottom: 8px;
+        }
+
+        /* Professional Corporate Tables */
+        .presentation-document table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            font-size: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .presentation-document th,
+        .presentation-document td {
+            border: 1px solid var(--border);
+            padding: 16px;
+            text-align: left;
+        }
+
+        .presentation-document th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .presentation-document tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .presentation-document tr:hover td {
+            background-color: #eff6ff;
+        }
+
+        /* Advanced Progressive Loader */
+        .skeleton-loader {
+            display: none;
+            padding: 60px 80px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-top: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+        }
+
+        .loader-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        .spinner {
+            color: var(--secondary);
+            font-size: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            animation: pulse-bg 1.5s infinite ease-in-out;
+        }
+
+        .skeleton-line.w-full {
+            width: 100%;
+        }
+
+        .skeleton-line.w-3/4 {
+            width: 75%;
+        }
+
+        .skeleton-line.w-1/2 {
+            width: 50%;
+        }
+
+        .skeleton-line.h-title {
+            height: 32px;
+            width: 40%;
+            margin-bottom: 32px;
+        }
+
+        .skeleton-box {
+            height: 120px;
+            width: 100%;
+            border-radius: 8px;
+            margin: 32px 0;
+            animation: pulse-bg 1.5s infinite ease-in-out;
+            background: #e2e8f0;
+        }
+
+        @keyframes pulse-bg {
+            0% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Print Styles for Export to PDF */
+        @media print {
+            body {
+                background: white;
+            }
+
+            nav,
+            .sidebar,
+            .header-actions,
+            .card {
+                display: none !important;
+            }
+
+            .app-layout {
+                margin-top: 0;
+                display: block;
+            }
+
+            .main-content {
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .presentation-document {
+                display: block !important;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="/" class="logo"><i class="fa-solid fa-chart-line"></i> VentureMetrics<span>AI</span></a>
+        <a href="/dashboard" class="back-link"><i class="fa-solid fa-arrow-left"></i> Return to Hub</a>
+    </nav>
+
+    <div class="app-layout">
+        <aside class="sidebar">
+            <h4>Generated Intel History</h4>
+            <button class="primary-btn" onclick="startNewAnalysis()"
+                style="margin-bottom: 24px; padding: 12px; font-size: 14px;"><i class="fa-solid fa-plus"></i> New
+                Analysis</button>
+            <div id="historyList">
+                <!-- Dynamic history items loaded via JS -->
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="header-actions">
+                <div>
+                    <h1>Competitor Positioning Matrix</h1>
+                    <span style="color: var(--text-muted); font-size: 15px;">Identify structural market gaps and exploit
+                        competitive vulnerabilities.</span>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button class="export-btn" onclick="copyOutput()"><i class="fa-regular fa-copy"></i> Copy</button>
+                    <button class="export-btn" onclick="window.print()"
+                        style="background: var(--primary); color: white; border: none;"><i
+                            class="fa-solid fa-file-pdf"></i> Export PDF</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fa-solid fa-bullseye"></i> Target Analysis Vector</h2>
+                <p class="card-subtitle">Define the specific entity or broad market class you intend to analyze and
+                    exploit.</p>
+
+                <label for="competitorName">Entity Name or Market Segment</label>
+                <input type="text" id="competitorName" placeholder="e.g., 'Peloton' or 'Premium Digital Fitness'">
+
+                <label for="marketConcern">Primary Strategic Threat / Concern</label>
+                <textarea id="marketConcern" rows="2"
+                    placeholder="e.g., Threat of them expanding into physical boutique spaces and cannibalizing our market share..."
+                    oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+
+                <button class="primary-btn" id="generateBtn" onclick="generateCompetitor()"><i
+                        class="fa-solid fa-microchip"></i> Execute Intelligence Scan</button>
+            </div>
+
+            <!-- Enhanced Document Loader -->
+            <div id="loader" class="skeleton-loader">
+                <div class="loader-header">
+                    <i class="fa-solid fa-circle-notch spinner"></i>
+                    <span class="loader-text" id="loaderStatus">Initializing market intelligence scan...</span>
+                </div>
+                <div class="skeleton-line h-title"></div>
+                <div class="skeleton-line w-full"></div>
+                <div class="skeleton-line w-full"></div>
+                <div class="skeleton-line w-3/4"></div>
+                <div class="skeleton-box"></div>
+                <div class="skeleton-line h-title" style="width: 25%;"></div>
+                <div class="skeleton-line w-full"></div>
+                <div class="skeleton-line w-1/2"></div>
+            </div>
+
+            <div id="resultOutput" class="presentation-document"></div>
+        </main>
+    </div>
+
+    <script>
+        const moduleName = 'competitor';
+        let currentHistoryId = null;
+
+        // Initialize History on Load
+        document.addEventListener('DOMContentLoaded', loadHistory);
+
+        function loadHistory() {
+            const history = JSON.parse(localStorage.getItem('vm_history_' + moduleName)) || [];
+            const list = document.getElementById('historyList');
+            list.innerHTML = '';
+
+            history.forEach(item => {
+                const a = document.createElement('a');
+                a.className = 'history-item' + (currentHistoryId === item.id ? ' active' : '');
+                a.innerHTML = `<i class="fa-solid fa-chess-knight"></i> <span>${item.title}</span>`;
+                a.onclick = () => viewHistory(item.id);
+                list.appendChild(a);
+            });
+        }
+
+        function saveToHistory(competitor, concern, htmlContent) {
+            const history = JSON.parse(localStorage.getItem('vm_history_' + moduleName)) || [];
+            const newItem = {
+                id: Date.now().toString(),
+                title: competitor,
+                competitor: competitor,
+                concern: concern,
+                content: htmlContent,
+                date: new Date().toISOString()
+            };
+            history.unshift(newItem); // Add newest to the top
+            localStorage.setItem('vm_history_' + moduleName, JSON.stringify(history));
+            currentHistoryId = newItem.id;
+            loadHistory();
+        }
+
+        function viewHistory(id) {
+            const history = JSON.parse(localStorage.getItem('vm_history_' + moduleName)) || [];
+            const item = history.find(h => h.id === id);
+            if (!item) return;
+
+            currentHistoryId = id;
+            loadHistory(); // Update active sidebar highlight
+
+            // Populate form
+            document.getElementById('competitorName').value = item.competitor;
+            document.getElementById('marketConcern').value = item.concern;
+
+            // Show result
+            document.getElementById('resultOutput').innerHTML = item.content;
+            document.getElementById('resultOutput').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startNewAnalysis() {
+            currentHistoryId = null;
+            loadHistory(); // Remove active sidebar highlight
+
+            // Clear form
+            document.getElementById('competitorName').value = '';
+            document.getElementById('marketConcern').value = '';
+
+            // Hide output
+            document.getElementById('resultOutput').style.display = 'none';
+            document.getElementById('resultOutput').innerHTML = '';
+
+            document.getElementById('competitorName').focus();
+        }
+
+        function copyOutput() {
+            const text = document.getElementById('resultOutput').innerText;
+            if (!text) return alert("No document generated yet.");
+            navigator.clipboard.writeText(text);
+            alert("Document content copied to clipboard.");
+        }
+
+        const loadMessages = [
+            "Correlating competitor financial telemetry...",
+            "Mapping structural market vulnerabilities...",
+            "Generating defensibility matrix and gap analysis...",
+            "Applying Brand Guardian differentiation rules...",
+            "Finalizing presentation document..."
+        ];
+
+        async function generateCompetitor() {
+            const competitor = document.getElementById('competitorName').value;
+            const concern = document.getElementById('marketConcern').value;
+            const dataContext = localStorage.getItem('ventureMetricsData') || '';
+            const companyDesc = localStorage.getItem('vm_companyDesc') || '';
+            const companyFocus = localStorage.getItem('vm_companyFocus') || '';
+
+            const btn = document.getElementById('generateBtn');
+            const output = document.getElementById('resultOutput');
+            const loader = document.getElementById('loader');
+            const statusText = document.getElementById('loaderStatus');
+
+            if (!competitor || !concern) return alert("Please define the target entity and primary concern.");
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Executing Scan...';
+            output.style.display = 'none';
+            loader.style.display = 'block';
+
+            let msgIndex = 0;
+            statusText.innerText = loadMessages[0];
+            const msgInterval = setInterval(() => {
+                msgIndex = (msgIndex + 1) % loadMessages.length;
+                statusText.innerText = loadMessages[msgIndex];
+            }, 2500);
+
+            try {
+                const response = await fetch('/api/generate_strategy', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        module: 'competitor', competitor: competitor, concern: concern,
+                        data_context: dataContext, company_desc: companyDesc, company_focus: companyFocus
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    const rawHtml = marked.parse(result.content);
+                    const cleanHtml = DOMPurify.sanitize(rawHtml);
+
+                    output.innerHTML = cleanHtml;
+                    output.style.display = 'block';
+                    saveToHistory(competitor, concern, cleanHtml); // Save successful generation
+                } else {
+                    alert("Error generating intelligence scan: " + result.error);
+                }
+            } catch (err) {
+                alert("Network error occurred.");
+            }
+            finally {
+                clearInterval(msgInterval);
+                loader.style.display = 'none';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-microchip"></i> Execute Intelligence Scan';
+            }
+        }
+    </script>
+</body>
+
+</html>

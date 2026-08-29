@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence Hub | VentureMetrics AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- ORIGINAL STYLES --- */
+        :root {
+            --primary: #0f172a;
+            --secondary: #2563eb;
+            --secondary-hover: #1d4ed8;
+            --accent: #10b981;
+            --bg-light: #f1f5f9;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--secondary), #60a5fa);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 100px auto 60px;
+            padding: 0 32px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .page-header p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-icon {
+            background: #eff6ff;
+            color: var(--secondary);
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-content h4 {
+            margin: 0 0 4px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .stat-content span {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .card-header i {
+            font-size: 20px;
+            color: var(--secondary);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .card p.subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-top: 0;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 24px;
+            font-family: inherit;
+            font-size: 15px;
+            background-color: #f8fafc;
+            box-sizing: border-box;
+            transition: all 0.2s;
+        }
+
+        textarea:focus,
+        input:focus {
+            outline: none;
+            background-color: var(--surface);
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .file-upload-wrapper {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #f8fafc;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: var(--secondary);
+            background-color: #eff6ff;
+        }
+
+        .file-upload-wrapper i {
+            font-size: 40px;
+            color: #94a3b8;
+            margin-bottom: 16px;
+        }
+
+        .status-msg {
+            margin-top: 16px;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .success-text {
+            color: var(--accent);
+        }
+
+        .error-text {
+            color: #ef4444;
+        }
+
+        /* --- CONTEXT MANAGER STYLES --- */
+        .context-item {
+            margin-bottom: 20px;
+        }
+
+        .context-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .context-value {
+            font-size: 14px;
+            background: var(--bg-light);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            white-space: pre-wrap;
+        }
+
+        /* Fixed Button Group */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            width: 100%;
+        }
+
+        .btn-group button {
+            flex: 1;
+            /* Makes buttons perfectly equal widths */
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-group button:hover {
+            background-color: var(--secondary-hover);
+        }
+
+        .btn-group .btn-danger {
+            background-color: white;
+            color: #ef4444;
+            border: 1px solid #fca5a5;
+        }
+
+        .btn-group .btn-danger:hover {
+            background-color: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal {
+            background: var(--surface);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            padding: 32px;
+            box-sizing: border-box;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* Tools & Activity Side */
+        .tools-card {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border: 1px solid #bfdbfe;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
+        }
+
+        .tool-link {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tool-link:hover {
+            border-color: var(--secondary);
+            transform: translateX(6px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+        }
+
+        .tool-icon {
+            font-size: 24px;
+            background: #eff6ff;
+            color: var(--secondary);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .tool-content h3 {
+            margin: 0 0 6px 0;
+            font-size: 16px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .tool-content p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo"><i class="fa-solid fa-chart-line"></i> VentureMetrics<span>AI</span></a>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="/dashboard" class="active">Intelligence Hub</a>
+                    <a href="#">Enterprise Settings</a>
+                </div>
+                <div class="avatar" title="Account Settings">AC</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Intelligence Hub</h1>
+            <p>Establish corporate baselines and orchestrate generative strategy modules.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                <div class="stat-content">
+                    <h4>Simulations Run</h4>
+                    <span>24</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-microchip"></i></div>
+                <div class="stat-content">
+                    <h4>Data Context Memory</h4>
+                    <span id="syncStatus" style="font-size: 22px;">Awaiting Upload</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #ecfdf5; color: var(--accent);"><i
+                        class="fa-solid fa-bolt"></i></div>
+                <div class="stat-content">
+                    <h4>Inference Engine Status</h4>
+                    <span style="color: var(--accent);">Operational</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-layout">
+            <!-- Left Column: Forms and Memory -->
+            <div class="main-column">
+
+                <!-- 1. Corporate Profile -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-building"></i>
+                        <h2>Global Business Profile</h2>
+                    </div>
+                    <p class="subtitle">Define the operational entity. This baseline orchestrates brand alignment and
+                        assumptions across all generated documents.</p>
+
+                    <label for="dashCompanyDesc">Corporate Background</label>
+                    <textarea id="dashCompanyDesc" rows="3"
+                        placeholder="e.g., A regional chain of high-end boutique fitness studios..."
+                        oninput="autoResize(this)"></textarea>
+
+                    <label for="dashCompanyFocus">Core Focus & Business Model</label>
+                    <textarea id="dashCompanyFocus" rows="2" placeholder="e.g., High-margin recurring memberships..."
+                        oninput="autoResize(this)"></textarea>
+
+                    <!-- Using inline button styling here to match the form -->
+                    <button id="saveProfileBtn" style="width: 100%; padding: 14px 28px;" onclick="saveProfile()"><i
+                            class="fa-solid fa-cloud-arrow-up"></i> Synchronize Corporate Profile</button>
+                    <div id="profileStatus" class="status-msg"></div>
+                </div>
+
+                <!-- 2. File Upload -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <h2>Telemetry & Context Ingestion</h2>
+                    </div>
+                    <p class="subtitle">Upload financial statements, P&L spreadsheets, or operational PDFs to provide
+                        the AI with factual mathematical grounding.</p>
+
+                    <div class="file-upload-wrapper" onclick="document.getElementById('dataFile').click()">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <h4 style="margin:0 0 8px 0; color: var(--primary);">Click to upload document</h4>
+                        <p style="margin:0; font-size: 13px; color: var(--text-muted);">Supports .PDF, .CSV, .XLSX</p>
+                        <input type="file" id="dataFile" accept=".pdf,.csv,.xls,.xlsx,.txt" style="display: none;"
+                            onchange="uploadData()">
+                    </div>
+                    <div id="uploadStatus" class="status-msg" style="margin-top: 24px;"></div>
+                </div>
+
+                <!-- 3. Active Data Context Viewer -->
+                <div class="card" style="border-color: var(--secondary);">
+                    <div class="card-header">
+                        <i class="fa-solid fa-database" style="color: var(--secondary);"></i>
+                        <h2>Active Data Context</h2>
+                    </div>
+                    <p class="subtitle">This is the current context stored in your browser that the AI will use to
+                        generate reports.</p>
+
+                    <div class="context-item">
+                        <span class="context-label">Corporate Background</span>
+                        <div class="context-value" id="displayDesc">No description loaded.</div>
+                    </div>
+
+                    <div class="context-item">
+                        <span class="context-label">Strategic Focus</span>
+                        <div class="context-value" id="displayFocus">No focus loaded.</div>
+                    </div>
+
+                    <div class="context-item">
+                        <span class="context-label">Uploaded Document</span>
+                        <div class="context-value" id="displayFile">No file uploaded.</div>
+                    </div>
+
+                    <!-- Fixed Button Group -->
+                    <div class="btn-group">
+                        <button onclick="openEditModal()"><i class="fa-solid fa-pen-to-square"></i> Edit
+                            Profiles</button>
+                        <button class="btn-danger" onclick="clearContext()"><i class="fa-solid fa-trash"></i> Clear
+                            Data</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Tools -->
+            <div class="side-column">
+                <div class="card tools-card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <h2>Strategic Execution Modules</h2>
+                    </div>
+                    <p class="subtitle" style="border:none; margin-bottom: 24px;">Execute generative frameworks.</p>
+
+                    <a href="/expansion" class="tool-link">
+                        <div class="tool-icon"><i class="fa-solid fa-rocket"></i></div>
+                        <div class="tool-content">
+                            <h3>Strategic Expansion</h3>
+                            <p>Generate phased geographical & operational blueprints.</p>
+                        </div>
+                    </a>
+                    <a href="/competitor" class="tool-link">
+                        <div class="tool-icon"><i class="fa-solid fa-chess-knight"></i></div>
+                        <div class="tool-content">
+                            <h3>Competitor Positioning</h3>
+                            <p>Map vulnerabilities & generate defensive differentiation.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Context Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <h2>Edit Intelligence Context</h2>
+
+            <label class="context-label">Company Description</label>
+            <input type="text" id="editDesc" placeholder="Enter company description...">
+
+            <label class="context-label">Strategic Focus</label>
+            <input type="text" id="editFocus" placeholder="Enter strategic focus...">
+
+            <label class="context-label">Raw Uploaded Data (Hidden override if needed)</label>
+            <textarea id="editData" rows="6" placeholder="Paste raw data context here..."></textarea>
+
+            <div class="btn-group" style="margin-top: 16px;">
+                <button class="btn-danger" onclick="closeEditModal()">Cancel</button>
+                <button onclick="saveManualContext()"><i class="fa-solid fa-check"></i> Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function autoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = (el.scrollHeight) + 'px';
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem('vm_companyDesc')) {
+                const el = document.getElementById('dashCompanyDesc');
+                el.value = localStorage.getItem('vm_companyDesc');
+                autoResize(el);
+            }
+            if (localStorage.getItem('vm_companyFocus')) {
+                const el = document.getElementById('dashCompanyFocus');
+                el.value = localStorage.getItem('vm_companyFocus');
+                autoResize(el);
+            }
+            if (localStorage.getItem('ventureMetricsData')) {
+                document.getElementById('syncStatus').innerHTML = 'Synchronized <i class="fa-solid fa-check-circle"></i>';
+                document.getElementById('syncStatus').style.color = 'var(--accent)';
+            }
+
+            loadContextDisplay();
+        }
+
+        function loadContextDisplay() {
+            const desc = localStorage.getItem('vm_companyDesc') || 'Not provided';
+            const focus = localStorage.getItem('vm_companyFocus') || 'Not provided';
+
+            // Fetch the file name instead of the raw data block
+            const fileName = localStorage.getItem('vm_uploadedFileName') || 'No file uploaded.';
+
+            document.getElementById('displayDesc').innerText = desc;
+            document.getElementById('displayFocus').innerText = focus;
+
+            // Display only the file name
+            document.getElementById('displayFile').innerHTML = `<i class="fa-solid fa-file"></i> ${fileName}`;
+        }
+
+        function saveProfile() {
+            localStorage.setItem('vm_companyDesc', document.getElementById('dashCompanyDesc').value);
+            localStorage.setItem('vm_companyFocus', document.getElementById('dashCompanyFocus').value);
+
+            document.getElementById('profileStatus').innerHTML = '<span class="success-text"><i class="fa-solid fa-check-circle"></i> Corporate profile synchronized.</span>';
+            setTimeout(() => { document.getElementById('profileStatus').innerHTML = ''; }, 3000);
+
+            loadContextDisplay();
+        }
+
+        async function uploadData() {
+            const fileInput = document.getElementById('dataFile');
+            const statusDiv = document.getElementById('uploadStatus');
+
+            if (!fileInput.files.length) return;
+
+            statusDiv.innerHTML = '<span style="color:var(--secondary);"><i class="fa-solid fa-circle-notch fa-spin"></i> Extracting structural metadata...</span>';
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                const response = await fetch('/api/extract_context', { method: 'POST', body: formData });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Save both the raw extracted data AND the file name
+                    localStorage.setItem('ventureMetricsData', result.data_context);
+                    localStorage.setItem('vm_uploadedFileName', fileInput.files[0].name);
+
+                    statusDiv.innerHTML = '<span class="success-text"><i class="fa-solid fa-check-circle"></i> Telemetry ingested successfully.</span>';
+                    document.getElementById('syncStatus').innerHTML = 'Synchronized <i class="fa-solid fa-check-circle"></i>';
+                    document.getElementById('syncStatus').style.color = 'var(--accent)';
+
+                    loadContextDisplay();
+                } else {
+                    statusDiv.innerHTML = '<span class="error-text"><i class="fa-solid fa-triangle-exclamation"></i> Processing error.</span>';
+                }
+            } catch (err) {
+                statusDiv.innerHTML = '<span class="error-text"><i class="fa-solid fa-wifi"></i> Network error occurred.</span>';
+            }
+        }
+
+        function openEditModal() {
+            document.getElementById('editDesc').value = localStorage.getItem('vm_companyDesc') || '';
+            document.getElementById('editFocus').value = localStorage.getItem('vm_companyFocus') || '';
+            document.getElementById('editData').value = localStorage.getItem('ventureMetricsData') || '';
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        function saveManualContext() {
+            localStorage.setItem('vm_companyDesc', document.getElementById('editDesc').value);
+            localStorage.setItem('vm_companyFocus', document.getElementById('editFocus').value);
+            localStorage.setItem('ventureMetricsData', document.getElementById('editData').value);
+
+            document.getElementById('dashCompanyDesc').value = document.getElementById('editDesc').value;
+            document.getElementById('dashCompanyFocus').value = document.getElementById('editFocus').value;
+
+            closeEditModal();
+            loadContextDisplay();
+        }
+
+        function clearContext() {
+            if (confirm("Are you sure you want to clear all active context and uploaded files?")) {
+                localStorage.removeItem('vm_companyDesc');
+                localStorage.removeItem('vm_companyFocus');
+                localStorage.removeItem('ventureMetricsData');
+                localStorage.removeItem('vm_uploadedFileName'); // Clear the saved file name too
+
+                document.getElementById('dashCompanyDesc').value = '';
+                document.getElementById('dashCompanyFocus').value = '';
+
+                document.getElementById('syncStatus').innerHTML = 'Awaiting Upload';
+                document.getElementById('syncStatus').style.color = 'inherit';
+                document.getElementById('uploadStatus').innerHTML = '';
+
+                loadContextDisplay();
+            }
+        }
+    </script>
+</body>
+
+</html>

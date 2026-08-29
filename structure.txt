@@ -1,0 +1,23 @@
+ARCHITECTURE OVERVIEW:
+This is a web application designed for helping businesses predict growth and allocate resources using Generative AI (openai/gpt-oss-120b). The project is hosted on Vercel using serverless functions for the Python backend.
+
+CONSTRAINTS & RULES FOR AI GENERATION:
+1. Backend: The entire backend logic MUST be centralized in a single Python file (`api/index.py`). We are using Flask as the framework.
+2. Frontend: We are using a multi-page architecture. Each distinct view MUST have its own dedicated HTML file located inside the `templates/` directory. All views utilize a modern, enterprise SaaS aesthetic (Inter font, FontAwesome icons, presentation-style document outputs).
+3. Hosting: The project uses Vercel. Do not alter `vercel.json` without explicit instruction.
+4. APIs: The project relies on LLM inference (Groq) and data extraction tools. Ensure all API calls happen strictly in the backend file and communicate via JSON endpoints.
+
+DIRECTORY STRUCTURE:
+/
+├── api/
+│   └── index.py            # Monolithic backend file handling routing & AI logic (Brand Guardian, Context Parsing)
+├── templates/
+│   ├── index.html          # Enterprise landing page
+│   ├── dashboard.html      # Main Intelligence Hub (Business Profile & Data Ingestion)
+│   ├── expansion.html      # Strategic Expansion Matrix module (outputs Presentation Document format)
+│   └── competitor.html     # Competitor Positioning module (outputs Presentation Document format)
+├── .gitignore
+├── .env
+├── requirements.txt
+├── structure.txt           # Project architecture reference
+└── vercel.json             # Vercel serverless deployment config
