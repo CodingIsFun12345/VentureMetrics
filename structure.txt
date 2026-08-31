@@ -10,12 +10,15 @@ CONSTRAINTS & RULES FOR AI GENERATION:
 DIRECTORY STRUCTURE:
 /
 ├── api/
-│   └── index.py            # Monolithic backend file handling routing & AI logic (Brand Guardian, Context Parsing)
+│   └── index.py            # Monolithic backend file handling routing & AI logic
 ├── templates/
 │   ├── index.html          # Enterprise landing page
 │   ├── dashboard.html      # Main Intelligence Hub (Business Profile & Data Ingestion)
-│   ├── expansion.html      # Strategic Expansion Matrix module (outputs Presentation Document format)
-│   └── competitor.html     # Competitor Positioning module (outputs Presentation Document format)
+│   ├── expansion.html      # Strategic Expansion Matrix module
+│   ├── competitor.html     # Competitor Positioning module
+│   ├── settings.html       # Enterprise configuration and API parameters
+│   ├── about.html          # About and Sales Contact interface
+│   └── legal.html          # Compliance, Security, and Data Processing documentation
 ├── .gitignore
 ├── .env
 ├── requirements.txt

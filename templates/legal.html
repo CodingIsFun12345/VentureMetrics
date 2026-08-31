@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal & Compliance | VentureMetrics AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #2563eb;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 5%;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo i,
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links a {
+            margin-left: 32px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .doc-container {
+            max-width: 760px;
+            margin: 120px auto 100px;
+            background: #ffffff;
+            padding: 64px;
+            border-radius: 20px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.05);
+            line-height: 1.7;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 32px;
+            margin-top: 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 20px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin: 0 0 24px 0;
+        }
+
+        .doc-section {
+            margin-bottom: 32px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/" class="logo"><i class="fa-solid fa-chart-line"></i> VentureMetrics<span>AI</span></a>
+        <div class="nav-links"><a href="/dashboard">Access Hub</a></div>
+    </nav>
+    <div class="doc-container">
+        <h1>VentureMetrics Corporate Policies</h1>
+
+        <div class="doc-section" id="security">
+            <h2>Security & Compliance</h2>
+            <p>VentureMetrics utilizes SOC2 Type II compliant infrastructure. All telemetry and financial data uploaded
+                through the platform are strictly sandboxed and processed only in-memory. We do not permanently store or
+                train external foundation models on your proprietary information.</p>
+        </div>
+
+        <div class="doc-section" id="privacy">
+            <h2>Privacy Policy</h2>
+            <p>Your business logic and active contexts are stored locally in your browser's persistent storage to
+                prevent network intercepts. No personal telemetry is tracked beyond core analytics required to monitor
+                serverless node health.</p>
+        </div>
+
+        <div class="doc-section" id="data">
+            <h2>Data Processing Agreement</h2>
+            <p>By connecting custom enterprise sources, you agree to our generalized data processing standard ensuring
+                all parsed text components maintain strict TLS encryption standard while in transit between your network
+                and the inference engine.</p>
+        </div>
+
+        <div class="doc-section" id="terms">
+            <h2>Terms of Service</h2>
+            <p>The outputs provided by the AI components are simulated strategy blueprints. VentureMetrics does not
+                accept legal liability for financial loss resulting from blind execution of machine-generated
+                frameworks.</p>
+        </div>
+    </div>
+</body>
+
+</html>

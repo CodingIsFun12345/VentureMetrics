@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | VentureMetrics AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #2563eb;
+            --secondary-hover: #1d4ed8;
+            --bg-light: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo i,
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--secondary), #60a5fa);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: default;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 120px auto 60px;
+            padding: 0 5%;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .card-header i {
+            font-size: 20px;
+            color: var(--secondary);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .card p.subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-top: 4px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--primary);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-family: inherit;
+            font-size: 15px;
+            background-color: #f8fafc;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background-color: var(--surface);
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        input:disabled {
+            background-color: #e2e8f0;
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px 28px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo"><i class="fa-solid fa-chart-line"></i> VentureMetrics<span>AI</span></a>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="/dashboard">Intelligence Hub</a>
+                </div>
+                <div class="avatar">AC</div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="page-header">
+            <h1>Workspace Settings</h1>
+            <p>Manage your organizational preferences and operational parameters.</p>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <i class="fa-solid fa-building-shield"></i>
+                <h2>Workspace Configuration</h2>
+            </div>
+            <p class="subtitle">These settings apply to all intelligence modules.</p>
+
+            <label>Organization Name</label>
+            <input type="text" value="VentureMetrics Org">
+
+            <label>Global API Endpoint Override</label>
+            <input type="password" value="******************">
+
+            <label>Default Output Format</label>
+            <input type="text" value="Markdown Presentation" disabled>
+
+            <button class="btn-primary" onclick="alert('Settings verified and saved.')">
+                <i class="fa-solid fa-check"></i> Save Configuration
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,7 +42,7 @@
             backdrop-filter: blur(12px);
             z-index: 1000;
             box-sizing: border-box;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
             transition: all 0.3s ease;
         }
 
@@ -109,7 +110,10 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2850&auto=format&fit=crop') no-repeat center center/cover;
             opacity: 0.05;
             z-index: 0;
@@ -171,7 +175,7 @@
             width: 100%;
             border-radius: 16px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
         /* Features Section */
@@ -277,10 +281,12 @@
         .steps-wrapper::before {
             content: '';
             position: absolute;
-            top: -50%; right: -20%;
-            width: 800px; height: 800px;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
         }
 
         .steps-container {
@@ -315,7 +321,7 @@
             flex-direction: row-reverse;
             transform: translateX(30px);
         }
-        
+
         .step-row:nth-child(even).visible {
             transform: translateX(0);
         }
@@ -398,13 +404,27 @@
 
         /* Animations */
         @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         @media (max-width: 992px) {
@@ -413,12 +433,24 @@
                 text-align: center;
                 padding-top: 140px;
             }
-            .hero h1 { font-size: 48px; }
-            .nav-links { display: none; }
-            .step-row, .step-row:nth-child(even) { flex-direction: column; text-align: center; }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .step-row,
+            .step-row:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <nav>
@@ -426,49 +458,58 @@
         <div class="nav-links">
             <a href="#features">Platform Features</a>
             <a href="#workflow">Methodology</a>
-            <a href="/dashboard" class="btn-nav">Access Hub <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i></a>
+            <a href="/dashboard" class="btn-nav">Access Hub <i class="fa-solid fa-arrow-right"
+                    style="margin-left: 6px;"></i></a>
         </div>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
             <h1>Architect Enterprise Strategy with Generative AI.</h1>
-            <p>VentureMetrics AI ingests your raw corporate telemetry, maps market vulnerabilities, and outputs board-ready strategic execution blueprints in seconds.</p>
+            <p>VentureMetrics AI ingests your raw corporate telemetry, maps market vulnerabilities, and outputs
+                board-ready strategic execution blueprints in seconds.</p>
             <a href="/dashboard" class="btn-main">Launch Intelligence Hub <i class="fa-solid fa-rocket"></i></a>
         </div>
         <div class="hero-image">
-            <!-- Professional dashboard mock image -->
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" alt="Dashboard Preview">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
+                alt="Dashboard Preview">
         </div>
     </header>
 
     <section id="features" class="section">
         <h2 class="section-title">Enterprise-Grade Modules</h2>
-        <p class="section-subtitle">A unified, secure environment for data-driven corporate planning, competitor analysis, and financial modeling.</p>
+        <p class="section-subtitle">A unified, secure environment for data-driven corporate planning, competitor
+            analysis, and financial modeling.</p>
 
         <div class="grid-3">
             <div class="feature-card observer-item">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop" class="feature-img" alt="Data Ingestion">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
+                    class="feature-img" alt="Data Ingestion">
                 <div class="feature-content">
                     <div class="feature-icon"><i class="fa-solid fa-database"></i></div>
                     <h3>Context Ingestion Engine</h3>
-                    <p>Upload operational telemetry or financial statements. Our processing engine maps structural metadata to ground AI outputs strictly in your commercial reality.</p>
+                    <p>Upload operational telemetry or financial statements. Our processing engine maps structural
+                        metadata to ground AI outputs strictly in your commercial reality.</p>
                 </div>
             </div>
             <div class="feature-card observer-item" style="transition-delay: 0.1s;">
-                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2942&auto=format&fit=crop" class="feature-img" alt="Expansion">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2942&auto=format&fit=crop"
+                    class="feature-img" alt="Expansion">
                 <div class="feature-content">
                     <div class="feature-icon"><i class="fa-solid fa-earth-americas"></i></div>
                     <h3>Strategic Expansion</h3>
-                    <p>Simulate structurally feasible growth avenues. Calculate required capital, operational dependencies, and export phased execution timelines automatically.</p>
+                    <p>Simulate structurally feasible growth avenues. Calculate required capital, operational
+                        dependencies, and export phased execution timelines automatically.</p>
                 </div>
             </div>
             <div class="feature-card observer-item" style="transition-delay: 0.2s;">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop" class="feature-img" alt="Competitor Intel">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop"
+                    class="feature-img" alt="Competitor Intel">
                 <div class="feature-content">
                     <div class="feature-icon"><i class="fa-solid fa-chess-knight"></i></div>
                     <h3>Competitor Positioning</h3>
-                    <p>Run deep market intelligence scans. Map competitor advantages, systematically exploit operational vulnerabilities, and carve out highly defensible moats.</p>
+                    <p>Run deep market intelligence scans. Map competitor advantages, systematically exploit operational
+                        vulnerabilities, and carve out highly defensible moats.</p>
                 </div>
             </div>
         </div>
@@ -476,28 +517,33 @@
 
     <section id="workflow" class="steps-wrapper">
         <div class="steps-container">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">Seamless Intelligence Workflow</h2>
-            <p class="section-subtitle" style="text-align: center; margin-bottom: 80px;">From raw historical data to highly actionable execution blueprints in three streamlined steps.</p>
+            <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">Seamless Intelligence Workflow
+            </h2>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 80px;">From raw historical data to
+                highly actionable execution blueprints in three streamlined steps.</p>
 
             <div class="step-row observer-item">
                 <div class="step-number">1</div>
                 <div class="step-text">
                     <h4>Establish Corporate Identity</h4>
-                    <p>Define your core business profile, operational model, and synchronize your foundational financial documents into our secure, sandboxed environment.</p>
+                    <p>Define your core business profile, operational model, and synchronize your foundational financial
+                        documents into our secure, sandboxed environment.</p>
                 </div>
             </div>
             <div class="step-row observer-item">
                 <div class="step-number">2</div>
                 <div class="step-text">
                     <h4>Select a Strategic Vector</h4>
-                    <p>Choose between geospatial expansion planning, risk-assessed capital allocation, or competitive vulnerability mapping via our modular toolset.</p>
+                    <p>Choose between geospatial expansion planning, risk-assessed capital allocation, or competitive
+                        vulnerability mapping via our modular toolset.</p>
                 </div>
             </div>
             <div class="step-row observer-item">
                 <div class="step-number">3</div>
                 <div class="step-text">
                     <h4>Export Presentation Documents</h4>
-                    <p>Instantly generate highly polished, board-ready presentation documents complete with matrices, cost breakdowns, and structured KPIs ready for executive review.</p>
+                    <p>Instantly generate highly polished, board-ready presentation documents complete with matrices,
+                        cost breakdowns, and structured KPIs ready for executive review.</p>
                 </div>
             </div>
         </div>
@@ -506,8 +552,10 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col" style="max-width: 320px;">
-                <a href="/" class="logo" style="color: white; margin-bottom: 20px; font-size: 20px;"><i class="fa-solid fa-chart-line"></i> VentureMetrics<span>AI</span></a>
-                <p style="font-size: 15px; line-height: 1.7;">Automating high-level corporate strategy and market intelligence through advanced generative artificial intelligence.</p>
+                <a href="/" class="logo" style="color: white; margin-bottom: 20px; font-size: 20px;"><i
+                        class="fa-solid fa-chart-line"></i> VentureMetrics<span>AI</span></a>
+                <p style="font-size: 15px; line-height: 1.7;">Automating high-level corporate strategy and market
+                    intelligence through advanced generative artificial intelligence.</p>
             </div>
             <div class="footer-col">
                 <h5>Platform Modules</h5>
@@ -517,15 +565,15 @@
             </div>
             <div class="footer-col">
                 <h5>Enterprise</h5>
-                <a href="#">About VentureMetrics</a>
-                <a href="#">Contact Sales</a>
-                <a href="#">Security & Compliance</a>
+                <a href="/about">About VentureMetrics</a>
+                <a href="/about#contact">Contact Sales</a>
+                <a href="/legal#security">Security & Compliance</a>
             </div>
             <div class="footer-col">
                 <h5>Legal</h5>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Data Processing</a>
+                <a href="/legal#privacy">Privacy Policy</a>
+                <a href="/legal#terms">Terms of Service</a>
+                <a href="/legal#data">Data Processing</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -535,7 +583,6 @@
     </footer>
 
     <script>
-        // Intersection Observer for scroll animations
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -556,4 +603,5 @@
         });
     </script>
 </body>
+
 </html>

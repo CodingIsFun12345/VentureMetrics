@@ -93,6 +93,21 @@ def competitor():
     """Renders the competitor positioning tool."""
     return render_template('competitor.html')
 
+@app.route('/settings')
+def settings():
+    """Renders the Enterprise Settings page."""
+    return render_template('settings.html')
+
+@app.route('/about')
+def about():
+    """Renders the About/Contact page."""
+    return render_template('about.html')
+
+@app.route('/legal')
+def legal():
+    """Renders the Legal/Compliance page."""
+    return render_template('legal.html')
+
 # ==========================================
 # API ROUTES
 # ==========================================

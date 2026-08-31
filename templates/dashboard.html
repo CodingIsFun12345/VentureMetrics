@@ -100,7 +100,7 @@
             justify-content: center;
             font-weight: 700;
             font-size: 14px;
-            cursor: pointer;
+            cursor: default;
             box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
         }
 
@@ -330,7 +330,6 @@
 
         .btn-group button {
             flex: 1;
-            /* Makes buttons perfectly equal widths */
             background-color: var(--secondary);
             color: white;
             border: none;
@@ -455,9 +454,9 @@
             <div class="nav-right">
                 <div class="nav-links">
                     <a href="/dashboard" class="active">Intelligence Hub</a>
-                    <a href="#">Enterprise Settings</a>
+                    <a href="/settings">Enterprise Settings</a>
                 </div>
-                <div class="avatar" title="Account Settings">AC</div>
+                <div class="avatar">AC</div>
             </div>
         </div>
     </nav>
@@ -494,7 +493,6 @@
         </div>
 
         <div class="dashboard-layout">
-            <!-- Left Column: Forms and Memory -->
             <div class="main-column">
 
                 <!-- 1. Corporate Profile -->
@@ -515,9 +513,10 @@
                     <textarea id="dashCompanyFocus" rows="2" placeholder="e.g., High-margin recurring memberships..."
                         oninput="autoResize(this)"></textarea>
 
-                    <!-- Using inline button styling here to match the form -->
-                    <button id="saveProfileBtn" style="width: 100%; padding: 14px 28px;" onclick="saveProfile()"><i
-                            class="fa-solid fa-cloud-arrow-up"></i> Synchronize Corporate Profile</button>
+                    <button id="saveProfileBtn"
+                        style="width: 100%; padding: 14px 28px; background-color: var(--secondary); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s;"
+                        onclick="saveProfile()"><i class="fa-solid fa-cloud-arrow-up"></i> Synchronize Corporate
+                        Profile</button>
                     <div id="profileStatus" class="status-msg"></div>
                 </div>
 
@@ -575,7 +574,6 @@
 
             </div>
 
-            <!-- Right Column: Tools -->
             <div class="side-column">
                 <div class="card tools-card">
                     <div class="card-header">
@@ -652,14 +650,10 @@
         function loadContextDisplay() {
             const desc = localStorage.getItem('vm_companyDesc') || 'Not provided';
             const focus = localStorage.getItem('vm_companyFocus') || 'Not provided';
-
-            // Fetch the file name instead of the raw data block
             const fileName = localStorage.getItem('vm_uploadedFileName') || 'No file uploaded.';
 
             document.getElementById('displayDesc').innerText = desc;
             document.getElementById('displayFocus').innerText = focus;
-
-            // Display only the file name
             document.getElementById('displayFile').innerHTML = `<i class="fa-solid fa-file"></i> ${fileName}`;
         }
 
@@ -689,7 +683,6 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    // Save both the raw extracted data AND the file name
                     localStorage.setItem('ventureMetricsData', result.data_context);
                     localStorage.setItem('vm_uploadedFileName', fileInput.files[0].name);
 
@@ -734,7 +727,7 @@
                 localStorage.removeItem('vm_companyDesc');
                 localStorage.removeItem('vm_companyFocus');
                 localStorage.removeItem('ventureMetricsData');
-                localStorage.removeItem('vm_uploadedFileName'); // Clear the saved file name too
+                localStorage.removeItem('vm_uploadedFileName');
 
                 document.getElementById('dashCompanyDesc').value = '';
                 document.getElementById('dashCompanyFocus').value = '';
