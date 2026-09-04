@@ -645,32 +645,33 @@
         async function uploadData() {
             const fileInput = document.getElementById('dataFile');
             const statusDiv = document.getElementById('uploadStatus');
+            if (fileInput.files.length === 0) return;
 
-            if (!fileInput.files.length) return;
-
-            statusDiv.innerHTML = '<span style="color:var(--secondary);"><i class="fa-solid fa-circle-notch fa-spin"></i> Extracting structural metadata...</span>';
-
+            const file = fileInput.files[0];
             const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
+            formData.append('file', file);
+            statusDiv.innerHTML = 'Uploading...';
 
+            const apiUrl = `${window.location.origin}/api/extract_context`;
             try {
-                const response = await fetch('/api/extract_context', { method: 'POST', body: formData });
+                const response = await fetch(apiUrl, { method: 'POST', body: formData });
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    const message = errData.error || 'Upload failed';
+                    throw new Error(message);
+                }
                 const result = await response.json();
-
                 if (result.success) {
                     localStorage.setItem('ventureMetricsData', result.data_context);
-                    localStorage.setItem('vm_uploadedFileName', fileInput.files[0].name);
-
+                    localStorage.setItem('vm_uploadedFileName', result.filename);
                     statusDiv.innerHTML = '<span class="success-text"><i class="fa-solid fa-check-circle"></i> Telemetry ingested successfully.</span>';
-                    document.getElementById('syncStatus').innerHTML = 'Synchronized <i class="fa-solid fa-check-circle"></i>';
-                    document.getElementById('syncStatus').style.color = 'var(--accent)';
-
                     loadContextDisplay();
                 } else {
                     statusDiv.innerHTML = '<span class="error-text"><i class="fa-solid fa-triangle-exclamation"></i> Processing error.</span>';
                 }
             } catch (err) {
-                statusDiv.innerHTML = '<span class="error-text"><i class="fa-solid fa-wifi"></i> Network error occurred.</span>';
+                console.error('Upload failed:', err);
+                statusDiv.innerHTML = `<span class="error-text"><i class="fa-solid fa-wifi"></i> ${err.message}</span>`;
             }
         }
 
@@ -707,8 +708,6 @@
                 document.getElementById('dashCompanyDesc').value = '';
                 document.getElementById('dashCompanyFocus').value = '';
 
-                document.getElementById('syncStatus').innerHTML = 'Awaiting Upload';
-                document.getElementById('syncStatus').style.color = 'inherit';
                 document.getElementById('uploadStatus').innerHTML = '';
 
                 loadContextDisplay();

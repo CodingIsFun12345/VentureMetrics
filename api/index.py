@@ -1,4 +1,5 @@
 import os
+from flask_cors import CORS
 import io
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
@@ -7,6 +8,8 @@ import PyPDF2
 
 # Initialize Flask app, pointing to the templates folder in the root directory
 app = Flask(__name__, template_folder='../templates')
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app)
 
 # Initialize Groq client. Ensure GROQ_API_KEY is set in your environment variables.
 client = Groq(api_key=os.environ.get("GROQ_API_KEY", ""))
@@ -114,12 +117,26 @@ def legal():
 
 @app.route('/api/extract_context', methods=['POST'])
 def extract_context():
-    """Endpoint to extract text from a file and return it so the frontend can store it across pages."""
-    file = request.files.get('file')
-    if file and file.filename != '':
+    """Endpoint to extract text from a file and return it so the frontend can store it across pages.
+    Includes error handling for missing file and parsing errors, returning appropriate JSON responses.
+    """
+
+    try:
+        file = request.files.get('file')
+        if not file or file.filename == '':
+            return jsonify({"success": False, "error": "No file provided."}), 400
+        # Debug info
+        filename = file.filename
+        file.seek(0, 2)  # move to end to get size
+        size = file.tell()
+        file.seek(0)  # reset pointer
+        print(f"Received file: {filename} ({size} bytes)")
         text = extract_text_from_file(file)
-        return jsonify({"success": True, "data_context": text})
-    return jsonify({"success": False, "error": "No file data provided."})
+        return jsonify({"success": True, "data_context": text, "filename": filename, "size": size})
+    except Exception as e:
+        print(f"Error in extract_context: {e}")
+        return jsonify({"success": False, "error": "File processing failed."}), 500
+
 
 @app.route('/api/generate_strategy', methods=['POST'])
 def generate_strategy():
